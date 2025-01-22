@@ -10,7 +10,7 @@ import tkinter as tk
 
 root = Tk()
 root.title("Background Remover")
-root.geometry("500x300+300+200")
+root.geometry("550x300+300+200")
 root.resizable(False, False)
 
 
@@ -41,6 +41,7 @@ def remove_background():
             
             break
         except FileNotFoundError as e:
+            
             progress_label.config(text = "The File you provided does not exist")
             break
         except Exception as e:
