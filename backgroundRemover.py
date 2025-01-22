@@ -22,6 +22,7 @@ zColor = 255
 def white():
     progress_label.config(text = "White", bg="#ffffff", fg = "black")
     progress_label.place(x= 210, y =230)
+    root.focus_set()
 def black():
     global xColor
     global yColor
@@ -31,6 +32,7 @@ def black():
     zColor = 0
     progress_label.config(text = "Black", bg="#000000", fg="white")
     progress_label.place(x= 210, y =230)
+    root.focus_set()
 def red():
     global xColor
     global yColor
@@ -40,6 +42,7 @@ def red():
     zColor = 0
     progress_label.config(text = "Red", bg="#ff0000", fg="white")
     progress_label.place(x= 210, y =230)
+    root.focus_set()
 def aquamarine():
     global xColor
     global yColor
@@ -49,6 +52,7 @@ def aquamarine():
     zColor = 212
     progress_label.config(text = "Aquamarine", bg="#7FFFD4", fg="black")
     progress_label.place(x= 210, y =230)
+    root.focus_set()
     
 
 
@@ -84,8 +88,19 @@ def remove_background():
             progress_label.config(text = "The File you provided does not exist")
             break
         except Exception as e:
-            print(f"Error: {e}")
+            progress_label.config(text = "Image Path Cannot Be Empty")
+            break
 
+
+def clear_placeholder(event):
+    if search_field.get() == "Enter Image Path":
+        search_field.delete(0, tk.END)
+        search_field.config(fg="black")
+
+def restore_placeholder(event):
+    if search_field.get() == "":
+        search_field.insert(0, "Enter Image Path")
+        search_field.config(fg="gray")
 
 
 
@@ -99,14 +114,20 @@ image_search = Label(image = search_image, bg = baseColor)
 image_search.place(x = 20, y = 20)
 
 #input field
-search_field = tk.Entry(root, justify="center", width= 17, font = ("poppins", 25, "bold"), bg= baseColor)
+search_field = tk.Entry(root, takefocus=False,justify="center", width= 17, font = ("poppins", 25, "bold"), bg= baseColor)
+search_field.insert(0, "Enter Image Path")
+search_field.config(fg="gray")
+search_field.bind("<FocusIn>", clear_placeholder)
+search_field.bind("<FocusOut>", restore_placeholder)
 search_field.place(x = 50, y = 40)
-search_field.focus()
+
+
+
 #remove button
 remove_icon = PhotoImage(file = "icon_remove.png")
 remove_icon = remove_icon.subsample(10,10)
 remove_button = Button(root, image = remove_icon, borderwidth = 0, cursor="hand2", command=remove_background)
-
+remove_button.focus_set()
 remove_button.place(x = 400, y = 39)
 
 
@@ -134,6 +155,7 @@ msg_notif.pack(padx = 5, pady = 5, side = BOTTOM)
 #display progress
 progress_label = Label(text="...", font=("arial", 20, "bold"),bg="#1fa9e5", fg = "white")
 progress_label.place(x=225, y = 230)
+
 
 
 
