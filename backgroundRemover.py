@@ -14,6 +14,45 @@ root.geometry("550x300+300+200")
 root.resizable(False, False)
 
 
+
+xColor = 255
+yColor = 255
+zColor = 255
+
+def white():
+    progress_label.config(text = "White", bg="#ffffff", fg = "black")
+    progress_label.place(x= 210, y =230)
+def black():
+    global xColor
+    global yColor
+    global zColor
+    xColor = 0
+    yColor = 0
+    zColor = 0
+    progress_label.config(text = "Black", bg="#000000", fg="white")
+    progress_label.place(x= 210, y =230)
+def red():
+    global xColor
+    global yColor
+    global zColor
+    xColor = 255
+    yColor = 0
+    zColor = 0
+    progress_label.config(text = "Red", bg="#ff0000", fg="white")
+    progress_label.place(x= 210, y =230)
+def aquamarine():
+    global xColor
+    global yColor
+    global zColor
+    xColor = 127
+    yColor = 255
+    zColor = 212
+    progress_label.config(text = "Aquamarine", bg="#7FFFD4", fg="black")
+    progress_label.place(x= 210, y =230)
+    
+
+
+
 def remove_background():
     
     progress_label.config(text = "Removing Background...")
@@ -32,7 +71,7 @@ def remove_background():
             output.save("img/"+output_path)
 
             #creating white background
-            white_background = img.new('RGB', output.size, (255, 255, 255))
+            white_background = img.new('RGB', output.size, (xColor, yColor, zColor))
             white_background.paste(output, mask=output)
             white_background.save("img/"+white_output_path)
 
@@ -68,14 +107,31 @@ remove_icon = PhotoImage(file = "icon_remove.png")
 remove_icon = remove_icon.subsample(10,10)
 remove_button = Button(root, image = remove_icon, borderwidth = 0, cursor="hand2", command=remove_background)
 
-
 remove_button.place(x = 400, y = 39)
 
+
+#Custom background color
+custom_background = Label(text="Choose Custom\nBackground: ", font=("arial", 20, "bold"),bg="#1fa9e5", fg = "white")
+custom_background.place(x=40, y = 100)
+
+#Button colors
+defaultColorBtn = Button(root, text="   ", font=("arial", 10, "bold"), bg="#ffffff", fg="white", cursor="hand2", command=white)
+defaultColorBtn.place(x = 265, y = 140)
+
+blackColor = Button(root, text="   ", font=("arial", 10, "bold"), bg="#000000", fg="white", cursor="hand2",command=black)
+blackColor.place(x = 290, y = 140)
+
+redColor = Button(root, text="   ", font=("arial", 10, "bold"), bg = "#ff0000", fg = "white", cursor="hand2",command=red)
+redColor.place(x = 315, y = 140)
+
+aquamarineClr = Button(root, text="   ", font=("arial", 10, "bold"), bg = "#7FFFD4", fg = "white", cursor="hand2", command=aquamarine)
+aquamarineClr.place(x = 340, y = 140)
 
 notif = PhotoImage(file = "box.png")
 msg_notif = Label(image = notif, bg = baseColor)
 msg_notif.pack(padx = 5, pady = 5, side = BOTTOM)
 
+#display progress
 progress_label = Label(text="...", font=("arial", 20, "bold"),bg="#1fa9e5", fg = "white")
 progress_label.place(x=225, y = 230)
 
