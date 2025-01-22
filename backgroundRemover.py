@@ -41,7 +41,6 @@ def remove_background():
             
             break
         except FileNotFoundError as e:
-            print("The File you provided does not exist...")
             progress_label.config(text = "The File you provided does not exist")
             break
         except Exception as e:
